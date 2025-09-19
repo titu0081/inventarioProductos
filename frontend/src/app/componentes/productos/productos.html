@@ -1,0 +1,253 @@
+<section class="productos">
+  @if (!mostrarFormularioProducto) {
+  <div class="d-flex justify-content-end mb-2">
+    <button
+      type="button"
+      class="btn btn-outline-primary d-flex gap-1 align-items-center"
+      (click)="mostrarFormulario()"
+    >
+      <i class="bi bi-plus-circle-fill"></i> Agregar producto
+    </button>
+  </div>
+  } @else { } @if (!mostrarFormularioProducto) {
+  <div class="d-flex gap-3 flex-wrap">
+    @for (item of productosPaginados; track item.id) {
+    <div class="card">
+      <img [src]="item.imagen || 'assets/no-image.png'" class="card-img-top" [alt]="item.nombre" />
+      <div class="card-body">
+        <!-- Línea del título + botones -->
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h5 class="card-title mb-0">{{ item.nombre }}</h5>
+          <div class="d-flex gap-2 ms-2">
+            <i
+              class="bi bi-pencil-square text-primary"
+              style="cursor: pointer"
+              title="Editar"
+              (click)="editarProducto(item)"
+            ></i>
+            <i
+              class="bi bi-trash-fill text-danger"
+              style="cursor: pointer"
+              title="Eliminar"
+              (click)="eliminarProducto(item)"
+            ></i>
+          </div>
+        </div>
+        <h6 class="card-subtitle mb-1 text-muted">{{ item.categoria }}</h6>
+        <p class="card-text my-1">{{ item.descripcion }}</p>
+        <p class="fw-bold my-1">${{ item.precio }}</p>
+        <p class="text-muted my-1">Stock: {{ item.stock }} u.</p>
+        <div class="d-flex align-items-center justify-content-center gap-2 mt-auto">
+          <button type="button" class="btn btn-outline-primary">Comprar</button>
+          <button type="button" class="btn btn-outline-info">Vender</button>
+        </div>
+      </div>
+    </div>
+    } @empty {
+    <p>No hay productos disponibles.</p>
+    }
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="paginaActual === 1">
+          <a class="page-link" (click)="paginaAnterior()">Previous</a>
+        </li>
+
+        @for (pagina of [].constructor(totalPaginas); track i; let i = $index) {
+        <li class="page-item" [class.active]="paginaActual === i + 1">
+          <a class="page-link" (click)="irPagina(i + 1)">{{ i + 1 }}</a>
+        </li>
+        }
+        <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+          <a class="page-link" (click)="paginaSiguiente()">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  } @else {
+  <section class="container my-4">
+    <!-- Cabecera -->
+    <div class="d-flex align-items-center justify-content-center mb-3 position-relative">
+      <!-- Icono situado a la izquierda, fuera del flujo -->
+      <i
+        class="bi bi-arrow-return-left position-absolute start-0 ms-3"
+        style="cursor: pointer"
+        (click)="regresarProductos()"
+      ></i>
+
+      <!-- Título centrado de verdad -->
+      <h1 class="h4 m-0">Formulario del producto</h1>
+    </div>
+
+    <hr />
+
+    <!-- Formulario -->
+    <form
+      [formGroup]="formulario"
+      (ngSubmit)="guardarNuevoProducto()"
+      class="d-flex flex-column gap-3"
+    >
+      <!-- Nombre -->
+      <div>
+        <label for="nombre" class="form-label">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          formControlName="nombre"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': nombre?.invalid && (nombre?.dirty || nombre?.touched) }"
+          placeholder="Ej: Producto A"
+          [maxLength]="nombreLongitud"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="nombre?.hasError('required') && (nombre?.dirty || nombre?.touched)"
+        >
+          Este campo es requerido.
+        </div>
+      </div>
+
+      <!-- Descripción -->
+      <div>
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input
+          type="text"
+          id="descripcion"
+          formControlName="descripcion"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)
+          }"
+          placeholder="Ej: Este producto es..."
+          [maxLength]="descripcionLongitud"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="descripcion?.hasError('required') && (descripcion?.dirty || descripcion?.touched)"
+        >
+          Este campo es requerido.
+        </div>
+        <div class="invalid-feedback" *ngIf="descripcion?.hasError('minlength')">
+          Mínimo 10 caracteres.
+        </div>
+        <div class="invalid-feedback" *ngIf="descripcion?.hasError('maxlength')">
+          Máximo 200 caracteres.
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <div>
+        <label for="imagenFile" class="form-label">Imagen</label>
+        <input
+          id="imagenFile"
+          type="file"
+          class="form-control"
+          accept="image/*"
+          (change)="onSeleccionarImagen($event)"
+          (blur)="onBlurImagen()"
+          [class.is-invalid]="imagen?.invalid && (imagen?.touched || imagen?.dirty)"
+        />
+        <!-- campo oculto que guarda la Base64 -->
+        <input type="hidden" formControlName="imagen" />
+        <div
+          class="invalid-feedback"
+          *ngIf="imagen?.hasError('required') && (imagen?.touched || imagen?.dirty)"
+        >
+          Este campo es requerido.
+        </div>
+      </div>
+
+      <!-- Categoría -->
+      <div>
+        <label for="categoria" class="form-label">Categoría</label>
+        <input
+          type="text"
+          id="categoria"
+          formControlName="categoria"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': categoria?.invalid && (categoria?.dirty || categoria?.touched)
+          }"
+          placeholder="Ej: Electrónica"
+          [maxLength]="50"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="categoria?.hasError('required') && (categoria?.dirty || categoria?.touched)"
+        >
+          Este campo es requerido.
+        </div>
+      </div>
+
+      <!-- Precio - Stock -->
+      <div class="d-flex flex-wrap gap-3">
+        <!-- Precio -->
+        <div class="flex-grow-1">
+          <label for="precio" class="form-label">Precio</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input
+              type="number"
+              id="precio"
+              formControlName="precio"
+              min="0"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': precio?.invalid && (precio?.dirty || precio?.touched) }"
+              placeholder="Ej: 100"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="precio?.hasError('required') && (precio?.dirty || precio?.touched)"
+            >
+              Requerido.
+            </div>
+            <div class="invalid-feedback" *ngIf="precio?.hasError('min')">
+              Debe ser mayor a 0.01.
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-grow-1">
+          <label for="stock" class="form-label">Stock</label>
+          <input
+            type="number"
+            id="stock"
+            formControlName="stock"
+            min="0"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': stock?.invalid && (stock?.dirty || stock?.touched) }"
+            placeholder="Ej: 100"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="stock?.hasError('required') && (stock?.dirty || stock?.touched)"
+          >
+            Requerido.
+          </div>
+          <div class="invalid-feedback" *ngIf="stock?.hasError('min')">Debe ser mayor a 0.</div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="d-flex justify-content-end gap-2">
+        <button
+          type="button"
+          (click)="reiniciarFormulario()"
+          class="btn btn-outline-secondary d-flex gap-1 align-items-center"
+        >
+          <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-primary d-flex gap-1 align-items-center"
+          [disabled]="formulario.invalid"
+        >
+          <i class="bi bi-send-fill"></i> Enviar
+        </button>
+      </div>
+    </form>
+  </section>
+  }
+</section>
