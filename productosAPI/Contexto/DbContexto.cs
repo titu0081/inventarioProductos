@@ -11,6 +11,6 @@ namespace ProductosAPI.Contexto
         }
 
         public DbSet<Productos> Productos { get; set; }
-
+        public DbSet<Transacciones> Transacciones { get; set; }
     }
 }

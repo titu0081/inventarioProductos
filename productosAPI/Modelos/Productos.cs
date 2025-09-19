@@ -16,6 +16,6 @@ namespace productosAPI.Modelos
         public decimal precio { set; get; }
         public int stock { set; get; }
 
-
+        public ICollection<Transacciones> Transacciones { get; set; } = new List<Transacciones>();
     }
 }
