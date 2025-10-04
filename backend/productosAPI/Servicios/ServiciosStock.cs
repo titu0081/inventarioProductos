@@ -37,14 +37,14 @@ namespace productosAPI.Servicios
 
             if (ajuste == 0)
             {
-                mensajeError = "Tipo de transacción debe ser 'entrada' o 'salida'.";
+                mensajeError = "Tipo de transacción debe ser 'compra' o 'venta'.";
                 return false;
             }
 
          
             if (producto.stock + ajuste < 0)
             {
-                mensajeError = "No hay suficiente stock para esta salida.";
+                mensajeError = "No hay suficiente stock para esta venta.";
                 return false;
             }
 
