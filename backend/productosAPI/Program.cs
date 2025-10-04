@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProductosAPI.Contexto;
+using productosAPI.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IServicioProducto, ServiciosProducto>();
+builder.Services.AddScoped<IServicioStock, ServiciosStock>();
+builder.Services.AddScoped<IServicioTransaccion, ServicioTransaccion>();
 
 var app = builder.Build();
 

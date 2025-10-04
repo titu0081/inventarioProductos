@@ -9,7 +9,7 @@
       <i class="bi bi-plus-circle-fill"></i> Agregar producto
     </button>
   </div>
-  } @else { } @if (!mostrarFormularioProducto) {
+  } @if (!mostrarFormularioProducto) {
   <div class="d-flex gap-3 flex-wrap">
     @for (item of productosPaginados; track item.id) {
     <div class="card">
@@ -37,7 +37,7 @@
         <p class="card-text my-1">{{ item.descripcion }}</p>
         <p class="fw-bold my-1">${{ item.precio }}</p>
         <p class="text-muted my-1">Stock: {{ item.stock }} u.</p>
-        <div class="d-flex align-items-center justify-content-center gap-2 mt-auto">
+        <div class="d-flex align-items-end justify-content-center gap-2">
           <button type="button" class="btn btn-outline-primary">Comprar</button>
           <button type="button" class="btn btn-outline-info">Vender</button>
         </div>
@@ -46,24 +46,24 @@
     } @empty {
     <p>No hay productos disponibles.</p>
     }
-  </div>
-  <div class="d-flex justify-content-end mt-3">
-    <nav>
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="paginaActual === 1">
-          <a class="page-link" (click)="paginaAnterior()">Previous</a>
-        </li>
+    <div class="d-flex justify-content-end mt-3">
+      <nav>
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="paginaAnterior()">Previous</a>
+          </li>
 
-        @for (pagina of [].constructor(totalPaginas); track i; let i = $index) {
-        <li class="page-item" [class.active]="paginaActual === i + 1">
-          <a class="page-link" (click)="irPagina(i + 1)">{{ i + 1 }}</a>
-        </li>
-        }
-        <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
-          <a class="page-link" (click)="paginaSiguiente()">Next</a>
-        </li>
-      </ul>
-    </nav>
+          @for (pagina of [].constructor(totalPaginas); track i; let i = $index) {
+          <li class="page-item" [class.active]="paginaActual === i + 1">
+            <a class="page-link" (click)="irPagina(i + 1)">{{ i + 1 }}</a>
+          </li>
+          }
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="paginaSiguiente()">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
   } @else {

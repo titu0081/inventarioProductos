@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductosAPI.Contexto;
 using productosAPI.Modelos;
+using productosAPI.Servicios;
 
 namespace ProductosAPI.Controllers
 {
@@ -15,70 +16,61 @@ namespace ProductosAPI.Controllers
     public class ProductosController : ControllerBase
     {
         private readonly DbContexto _context;
+        private readonly IServicioProducto _servicioProducto;
 
-        public ProductosController(DbContexto context)
+        public ProductosController(DbContexto context, IServicioProducto servicioProducto)
         {
             _context = context;
+            _servicioProducto = servicioProducto;
         }
 
         // GET: api/Productos
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> GetProducto()
+        public ActionResult<ApiResponse> GetProductos()
         {
           if (_context.Productos == null)
           {
               return ApiResponse.Fail("No se encuentran datos que mostrar");
           }
-          var listaProductos = await _context.Productos.ToListAsync();
-
-            return ApiResponse.Ok(listaProductos);
+            var lista = _servicioProducto.obtenerProductos();
+            return lista.Count == 0
+                ? ApiResponse.Fail("No se encuentran datos que mostrar")
+                : ApiResponse.Ok(lista);
         }
 
         // GET: api/Productos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponse>> GetProductos(int id)
+        public ActionResult<ApiResponse> GetProductos(int id)
         {
-          if (_context.Productos == null)
-          {
-              return ApiResponse.Fail("Existe un error en la conexión");
-          }
-            var productos = await _context.Productos.FindAsync(id);
+            if (_context.Productos == null)
+            {
+                return ApiResponse.Fail("Existe un error en la conexión");
+            }
+            var producto = _servicioProducto.obtenerProducto(id);
 
-            if (productos == null)
+            if (producto == null)
             {
                 return ApiResponse.Fail("No se encontró el registro");
             }
 
-            return ApiResponse.Ok(productos);
+            return ApiResponse.Ok(producto);
         }
 
         // PUT: api/Productos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponse>> PutProductos(int id, Productos productos)
+        public ActionResult<ApiResponse> PutProductos(int id, Productos productos)
         {
             if (id != productos.id)
             {
                 return ApiResponse.Fail("El ID no coincide con el producto");
             }
 
-            _context.Entry(productos).State = EntityState.Modified;
-
-            try
+            if (!_servicioProducto.existeProducto(id))
             {
-                await _context.SaveChangesAsync();
+                return ApiResponse.Fail("No se encuentra un producto con ese ID");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductosExists(id))
-                {
-                    return ApiResponse.Fail("No se encuentra un producto con ese ID");
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _servicioProducto.actualizarProducto(productos);
 
             return ApiResponse.Ok(productos, "Se actualizó el producto con éxito");
         }
@@ -86,41 +78,35 @@ namespace ProductosAPI.Controllers
         // POST: api/Productos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ApiResponse>> PostProductos(Productos productos)
+        public ActionResult<ApiResponse> PostProductos(Productos productos)
         {
-          if (_context.Productos == null)
-          {
-              return ApiResponse.Fail("Existe un error en la conexión"); 
-          }
-            _context.Productos.Add(productos);
-            await _context.SaveChangesAsync();
+            if (_context.Productos == null)
+            {
+                return ApiResponse.Fail("Existe un error en la conexión");
+            }
+
+            _servicioProducto.agregarProducto(productos);
 
             return ApiResponse.Ok(productos, "Se ingresó el producto con éxito");
         }
 
         // DELETE: api/Productos/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ApiResponse>> DeleteProductos(int id)
+        public ActionResult<ApiResponse> DeleteProductos(int id)
         {
             if (_context.Productos == null)
             {
                 return ApiResponse.Fail("Existe un error en la conexión");
             }
-            var productos = await _context.Productos.FindAsync(id);
-            if (productos == null)
+
+            if (!_servicioProducto.existeProducto(id))
             {
                 return ApiResponse.Fail("No se encuentra el producto a eliminar");
             }
 
-            _context.Productos.Remove(productos);
-            await _context.SaveChangesAsync();
+            _servicioProducto.eliminarProducto(id);
 
             return ApiResponse.Ok(id, "Producto eliminado con éxito");
-        }
-
-        private bool ProductosExists(int id)
-        {
-            return (_context.Productos?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 
@@ -130,7 +116,6 @@ namespace ProductosAPI.Controllers
         public object? Data { get; init; }
         public string Mensaje { get; init; } = string.Empty;
         public string Error { get; init; } = string.Empty;
-
 
         // helpers rápidos
         public static ApiResponse Ok(object? data = null, string? mensaje = null)

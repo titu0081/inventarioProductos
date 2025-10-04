@@ -20,9 +20,7 @@ namespace productosAPI.Modelos
         public string detalle { set; get; }
 
         [ForeignKey(nameof(idProducto))]
-        [JsonIgnore] // <-- evita el ciclo
-        public Productos ProductoNav { get; set; } = null!;
-
-
+        [JsonIgnore] 
+        public Productos? ProductoNav { get; set; }
     }
 }
