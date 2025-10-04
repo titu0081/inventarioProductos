@@ -1,4 +1,35 @@
-.card {
-  width: 16rem;
-  max-height: 30rem;
+.imagen {
+  width: 7rem;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.vista {
+  height: fit-content;
+  max-height: 22.5rem;
+  overflow: auto;
+}
+
+@media (min-width: 1300px) {
+  .vista {
+    height: fit-content;
+    max-height: 24rem;
+    overflow: auto;
+  }
+}
+
+.cantidad {
+  width: 70%;
+}
+
+.bi {
+  cursor: pointer;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
 }
