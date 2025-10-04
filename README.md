@@ -7,7 +7,7 @@ Realizar ng s o npm start y listo.
 Evidencias: 
 Página pricipal: <img width="1518" height="685" alt="image" src="https://github.com/user-attachments/assets/87418db9-19e9-40e1-afab-adfd4194501c" />
 Pagina Transacciones por producto: <img width="1507" height="547" alt="image" src="https://github.com/user-attachments/assets/6f8b920f-42bc-4a1c-8a47-f91653888c2f" />
-Paginado: <img width="1868" height="436" alt="image" src="https://github.com/user-attachments/assets/a636f61d-110f-4402-a4c9-0bc641c56e92" />
+Paginado: <img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/35a0f49b-dc0d-467a-9e11-5e63078f9be4" />
 <img width="1515" height="311" alt="image" src="https://github.com/user-attachments/assets/50f74aa3-25ee-4a10-9bb3-5b38aee0c34b" />
 Edición y agregar productos: <img width="469" height="439" alt="image" src="https://github.com/user-attachments/assets/385b34e5-8998-4399-9678-a9e0c5250eb0" />
 Validaciones:<img width="535" height="527" alt="image" src="https://github.com/user-attachments/assets/a7fe1c5e-a8a7-46a6-8d95-9f4a11be72c1" />
