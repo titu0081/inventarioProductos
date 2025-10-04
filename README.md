@@ -1,11 +1,17 @@
 Requisitos:
 Para ejecutar el proyecto es necesario tener las últimas versiones Angular y de .Net.
+
 • Ejecución del backend: Es necesario abrirlo en Visual Studio y desplegarlo, una vez inicializado es importante instalar paquetes nuggets y verificar la ruta en la que se visualiza en el navegador.
+
 Cambiar la conexion a la base de datos que esta en el archivo appsetings.json. Se encuentra como "Conexión".
+
 • Ejecución del frontend: Para ejecutar el frontend es necesario realizar npm install, después configurar el environment con la ruta del backend que se presento en la URL. 
 Realizar ng s o npm start y listo.
+
 Evidencias: 
+
 Página pricipal: 
+
 <img width="1518" height="685" alt="image" src="https://github.com/user-attachments/assets/87418db9-19e9-40e1-afab-adfd4194501c" />
 
 Pagina Transacciones por producto: 
