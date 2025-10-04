@@ -14,7 +14,7 @@ Página pricipal:
 
 <img width="1518" height="685" alt="image" src="https://github.com/user-attachments/assets/87418db9-19e9-40e1-afab-adfd4194501c" />
 
-Pagina Transacciones por producto: 
+Pagina Transacciones por producto, las transacciones se crean con cada acción de compra y venta: 
 <img width="1507" height="547" alt="image" src="https://github.com/user-attachments/assets/6f8b920f-42bc-4a1c-8a47-f91653888c2f" />
 
 Paginado:
