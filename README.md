@@ -16,6 +16,7 @@ Paginado:
 <img width="1515" height="311" alt="image" src="https://github.com/user-attachments/assets/50f74aa3-25ee-4a10-9bb3-5b38aee0c34b" />
 
 Edición y agregar productos: 
+
 <img width="469" height="439" alt="image" src="https://github.com/user-attachments/assets/385b34e5-8998-4399-9678-a9e0c5250eb0" />
 
 Validaciones:
