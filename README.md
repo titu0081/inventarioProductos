@@ -9,8 +9,13 @@ Página pricipal: <img width="1518" height="685" alt="image" src="https://github
 Pagina Transacciones por producto: <img width="1507" height="547" alt="image" src="https://github.com/user-attachments/assets/6f8b920f-42bc-4a1c-8a47-f91653888c2f" />
 Paginado: <img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/35a0f49b-dc0d-467a-9e11-5e63078f9be4" />
 <img width="1515" height="311" alt="image" src="https://github.com/user-attachments/assets/50f74aa3-25ee-4a10-9bb3-5b38aee0c34b" />
-Edición y agregar productos: <img width="469" height="439" alt="image" src="https://github.com/user-attachments/assets/385b34e5-8998-4399-9678-a9e0c5250eb0" />
-Validaciones:<img width="535" height="527" alt="image" src="https://github.com/user-attachments/assets/a7fe1c5e-a8a7-46a6-8d95-9f4a11be72c1" />
+
+Edición y agregar productos: 
+<img width="469" height="439" alt="image" src="https://github.com/user-attachments/assets/385b34e5-8998-4399-9678-a9e0c5250eb0" />
+
+Validaciones:
+<img width="535" height="527" alt="image" src="https://github.com/user-attachments/assets/a7fe1c5e-a8a7-46a6-8d95-9f4a11be72c1" />
+
 Mensajes de exito y errores:
 <img width="395" height="258" alt="Captura de pantalla 2025-09-19 013750" src="https://github.com/user-attachments/assets/48513ee1-862a-4f0e-8eac-0c13296e9c52" />
 <img width="417" height="496" alt="Captura de pantalla 2025-09-19 013915" src="https://github.com/user-attachments/assets/37e92144-cde7-4ca4-b763-ccfd95b08bec" />
