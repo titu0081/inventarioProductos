@@ -5,9 +5,14 @@ Cambiar la conexion a la base de datos que esta en el archivo appsetings.json. S
 • Ejecución del frontend: Para ejecutar el frontend es necesario realizar npm install, después configurar el environment con la ruta del backend que se presento en la URL. 
 Realizar ng s o npm start y listo.
 Evidencias: 
-Página pricipal: <img width="1518" height="685" alt="image" src="https://github.com/user-attachments/assets/87418db9-19e9-40e1-afab-adfd4194501c" />
-Pagina Transacciones por producto: <img width="1507" height="547" alt="image" src="https://github.com/user-attachments/assets/6f8b920f-42bc-4a1c-8a47-f91653888c2f" />
-Paginado: <img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/35a0f49b-dc0d-467a-9e11-5e63078f9be4" />
+Página pricipal: 
+<img width="1518" height="685" alt="image" src="https://github.com/user-attachments/assets/87418db9-19e9-40e1-afab-adfd4194501c" />
+
+Pagina Transacciones por producto: 
+<img width="1507" height="547" alt="image" src="https://github.com/user-attachments/assets/6f8b920f-42bc-4a1c-8a47-f91653888c2f" />
+
+Paginado:
+<img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/35a0f49b-dc0d-467a-9e11-5e63078f9be4" />
 <img width="1515" height="311" alt="image" src="https://github.com/user-attachments/assets/50f74aa3-25ee-4a10-9bb3-5b38aee0c34b" />
 
 Edición y agregar productos: 
